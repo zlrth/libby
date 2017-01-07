@@ -50,28 +50,11 @@
     (log/info component "started"))
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app)))
 
-;; (:out (sh "node" "index.js"))
-
-;; (sh "curl" (re-find #"http.*$" (:out (sh "node" "index.js"))))
-
-;; (re-find #"get\.[^']+" (:out (sh "curl" (re-find #"http.*$" (:out (sh "node" "index.js"))))))
-
-;; (str "http://libgen.io/" (re-find #"get\.[^']+" (:out (sh "curl" (re-find #"http.*$" (:out (sh "node" "index.js")))))))
-
-;; (sh "wget" "-Ogood" (str "http://libgen.io/" (re-find #"get\.[^']+" (:out (sh "curl" (re-find #"http.*$" (:out (sh "node" "index.js"))))))))
-
 (defn- fetch-binary!
-  "makes an HTTP request and fetches the binary object"
   [url]
   (let [req (client/get url {:as :byte-array :throw-exceptions false})]
     (if (= (:status req) 200)
       (:body req))))
-
-
-(defn change-query [name]
-  (let [old (slurp "index.js")
-        new (s/replace old #"jesus" name)]
-    (spit "new.js" new)))
 
 (defn get-results [query]
   (let [search-body (:body (client/get (str "http://libgen.io/search.php?req=" query)))
@@ -82,17 +65,7 @@
         download-url (str "http://libgen.io/" (re-find #"get\.php[^']+"  page-body))
         ]
     download-url
-    ;; (re-seq #"DOWNLOAD" page-body)
-    ;; (count page-bodies)
     ))
-
-(defn do-shit [name]
-  (do
-    (change-query name)
-    (sh "wget" "-O" name ".epub" (str "http://libgen.io/" (re-find #"get\.[^']+" (:out (sh "curl" (re-find #"http.*$" (:out (sh "node" "new.js"))))))))))
-
-
-
 
 (defn -main [& args]
   (start-app args))
