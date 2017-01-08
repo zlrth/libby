@@ -1,14 +1,11 @@
 (ns libby.core
   (:require [libby.handler :as handler]
             [luminus.repl-server :as repl]
-            [clj-http.client :as client]
             [luminus.http-server :as http]
             [libby.config :refer [env]]
             [clojure.tools.cli :refer [parse-opts]]
             [clojure.tools.logging :as log]
             [clojure.java.shell :refer :all]
-            [clojure.java.io :as io]
-            [clojure.string :as s]
             [mount.core :as mount])
   (:gen-class))
 
