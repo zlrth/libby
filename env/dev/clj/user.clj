@@ -17,13 +17,13 @@
   (stop)
   (start))
 
-(defn fetch-binary!
+(defn fetch-binary
   [url]
   (let [req (client/get url {:as :byte-array :throw-exceptions false})]
     (if (= (:status req) 200)
       req)))
 
-(defn file-name
+(defn req->file-name
   [req]
   (let [headers (:headers req)
         stringified (apply str (apply concat headers)) ;; TODO fix nested applys
@@ -32,28 +32,24 @@
 
 (defn save-binary!
   [url]
-  (let [req (fetch-binary! url)]
-    (with-open [w (io/output-stream (str "pdfs/" "havingfun" ".pdf"))]
+  (let [req (fetch-binary url)]
+    (with-open [w (io/output-stream (str "pdfs/" (req->file-name req)))]
       (.write w (:body req)))
     req))
 
 (defn get-results [query]
   (let [search-body (:body (client/get (str "http://libgen.io/search.php?req=" query)))
         ads (re-seq #"ads.php[^']+" search-body)
-        page-bodies (map #(:body (client/get (str "http://libgen.io/" %))) ads)
+        download-bodies (map #(:body (client/get (str "http://libgen.io/" %))) ads)
 ;;         ad (first ads)
         ;; page-body (:body (client/get (str "http://libgen.io/" ad)))
-        download-urls (map  #(str "http://libgen.io/" (re-find #"get\.php[^']+"  %)) page-bodies)
-        ]
-    download-urls
-    ))
+        direct-links (map  #(str "http://libgen.io/" (re-find #"get\.php[^']+"  %)) download-bodies)]
+    direct-links))
 
 (defn get-result [query]
   (let [search-body (:body (client/get (str "http://libgen.io/search.php?req=" query)))
         ads (re-seq #"ads.php[^']+" search-body)
         ad (first ads)
-        page-body (:body (client/get (str "http://libgen.io/" ad)))
-        download-url (str "http://libgen.io/" (re-find #"get\.php[^']+"  page-body))
-        ]
-    download-url
-    ))
+        download-body (:body (client/get (str "http://libgen.io/" ad)))
+        direct-link (str "http://libgen.io/" (re-find #"get\.php[^']+"  download-body))]
+    direct-link))
