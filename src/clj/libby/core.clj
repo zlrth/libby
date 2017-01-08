@@ -55,15 +55,14 @@
   [url]
   (let [req (client/get url {:as :byte-array :throw-exceptions false})]
     (if (= (:status req) 200)
-      (:body req))))
+      req)))
 
 (defn save-binary!
-  "downloads and stores the photo on disk"
   [url]
-  (let [p (fetch-binary! url)]
-    (if (not (nil? p))
-      (with-open [w (io/output-stream (str "pdfs/" "havingfun" ".pdf"))]
-        (.write w p)))))
+  (let [req (fetch-binary! url)]
+    (with-open [w (io/output-stream (str "pdfs/" "havingfun" ".pdf"))]
+      (.write w (:body req)))
+    req))
 
 (defn get-results [query]
   (let [search-body (:body (client/get (str "http://libgen.io/search.php?req=" query)))
