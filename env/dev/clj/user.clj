@@ -17,12 +17,18 @@
   (stop)
   (start))
 
-
 (defn fetch-binary!
   [url]
   (let [req (client/get url {:as :byte-array :throw-exceptions false})]
     (if (= (:status req) 200)
       req)))
+
+(defn file-name
+  [req]
+  (let [headers (:headers req)
+        stringified (apply str (apply concat headers)) ;; TODO fix nested applys
+        f (re-find #"(?<=filename..).*(?=\")" stringified)]
+    f))
 
 (defn save-binary!
   [url]
