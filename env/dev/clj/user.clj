@@ -17,7 +17,7 @@
   (stop)
   (start))
 
-(defn fetch-binary
+(defn url->req
   [url]
   (let [req (client/get url {:as :byte-array :throw-exceptions false})]
     (if (= (:status req) 200)
@@ -32,7 +32,7 @@
 
 (defn save-binary!
   [url]
-  (let [req (fetch-binary url)]
+  (let [req (url->req url)]
     (with-open [w (io/output-stream (str "pdfs/" (req->file-name req)))]
       (.write w (:body req)))
     req))
