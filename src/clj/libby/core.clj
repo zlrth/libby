@@ -7,6 +7,7 @@
             [clojure.tools.cli :refer [parse-opts]]
             [clojure.tools.logging :as log]
             [clojure.java.shell :refer :all]
+            [clojure.java.io :as io]
             [clojure.string :as s]
             [mount.core :as mount])
   (:gen-class))
@@ -50,16 +51,34 @@
     (log/info component "started"))
   (.addShutdownHook (Runtime/getRuntime) (Thread. stop-app)))
 
-(defn- fetch-binary!
+(defn fetch-binary!
   [url]
   (let [req (client/get url {:as :byte-array :throw-exceptions false})]
     (if (= (:status req) 200)
       (:body req))))
 
+(defn save-binary!
+  "downloads and stores the photo on disk"
+  [url]
+  (let [p (fetch-binary! url)]
+    (if (not (nil? p))
+      (with-open [w (io/output-stream (str "pdfs/" "havingfun" ".pdf"))]
+        (.write w p)))))
+
 (defn get-results [query]
   (let [search-body (:body (client/get (str "http://libgen.io/search.php?req=" query)))
         ads (re-seq #"ads.php[^']+" search-body)
-        ;; page-bodies (map #(:body (client/get (str "http://libgen.io/" %))) ads)
+        page-bodies (map #(:body (client/get (str "http://libgen.io/" %))) ads)
+;;         ad (first ads)
+        ;; page-body (:body (client/get (str "http://libgen.io/" ad)))
+        download-urls (map  #(str "http://libgen.io/" (re-find #"get\.php[^']+"  %)) page-bodies)
+        ]
+    download-urls
+    ))
+
+(defn get-result [query]
+  (let [search-body (:body (client/get (str "http://libgen.io/search.php?req=" query)))
+        ads (re-seq #"ads.php[^']+" search-body)
         ad (first ads)
         page-body (:body (client/get (str "http://libgen.io/" ad)))
         download-url (str "http://libgen.io/" (re-find #"get\.php[^']+"  page-body))
