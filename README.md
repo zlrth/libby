@@ -31,12 +31,9 @@ the result should be: Clojure Applied: From Practice to Practitioner
 
 
 
-
-then you start the service. 
+possibly-useful link:
 
 http://stackoverflow.com/questions/17666249/how-to-import-an-sql-file-using-the-command-line-in-mysql
-
-shell> mysql db_name < backup-file.sql
 
 ## Prerequisites
 
