@@ -16,6 +16,16 @@ now, assuming everything's done, do this: mysql -u root -p bookwarrior < backup_
 
 it should take minutes.
 
+you are ready to learn sql queryies!
+
+once you've mysql -uroot'd, don't forget to use bookwarrior;
+
+to check that it works, try select title from updated where md5 = '67BA5CC5A7118784770ED996B348C0FD';
+
+the result should be: Clojure Applied: From Practice to Practitioner
+
+
+
 
 
 
