@@ -1,8 +1,32 @@
 # libby
 
-generated using Luminus version "2.9.11.20"
+## configuring your host machine for the sql database
 
-FIXME
+first you install mysql, following some of these directions: https://coderwall.com/p/os6woq/uninstall-all-those-broken-versions-of-mysql-and-re-install-it-with-brew-on-mac-mavericks . ignore most of it. just do like brew update and brew upgrade and brew install and then (important!):
+
+mysql.server start
+
+mysql -uroot
+
+then, inside mysql: create database bookwarrior;
+
+now exit mysql with control-d.
+
+now, assuming everything's done, do this: mysql -u root -p bookwarrior < backup_libgen.sql
+
+it should take minutes.
+
+
+
+
+
+
+
+then you start the service. 
+
+http://stackoverflow.com/questions/17666249/how-to-import-an-sql-file-using-the-command-line-in-mysql
+
+shell> mysql db_name < backup-file.sql
 
 ## Prerequisites
 
