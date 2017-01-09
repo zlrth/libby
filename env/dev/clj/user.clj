@@ -72,5 +72,5 @@
                })
 
 (defn md5->title [md5]
-  (j/query mysql-db ["select title,Filesize from updated where md5 = ?" md5]))
+  (j/query mysql-db ["select title,Extension,Filesize from updated where md5 = ?" md5]))
 
