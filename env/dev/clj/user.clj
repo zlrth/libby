@@ -3,6 +3,8 @@
             [clojure.string :as s]
             [clojure.java.io :as io]
             [clj-http.client :as client]
+            [clojure.java.jdbc :as j]
+            ;; [mysql-connector-java]
             libby.core))
 
 (defn start []
@@ -16,6 +18,9 @@
 (defn restart []
   (stop)
   (start))
+
+
+
 
 (defn url->req
   [url]
@@ -46,6 +51,11 @@
         direct-links (map  #(str "http://libgen.io/" (re-find #"get\.php[^']+"  %)) download-bodies)]
     direct-links))
 
+(defn query->download-link [query]
+  (let [search-body (:body (client/get (str "http://libgen.io/search.php?req=" query)))
+        md5s (distinct (re-seq #"(?<=md5=).{32}" search-body))
+        ]))
+
 (defn get-result [query]
   (let [search-body (:body (client/get (str "http://libgen.io/search.php?req=" query)))
         ads (re-seq #"ads.php[^']+" search-body)
@@ -53,3 +63,14 @@
         download-body (:body (client/get (str "http://libgen.io/" ad)))
         direct-link (str "http://libgen.io/" (re-find #"get\.php[^']+"  download-body))]
     direct-link))
+
+
+(def mysql-db {:dbtype "mysql"
+               :dbname "bookwarrior"
+               :user "root"
+               :password ""
+               })
+
+(defn md5->title [md5]
+  (j/query mysql-db ["select title,Filesize from updated where md5 = ?" md5]))
+
