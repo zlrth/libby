@@ -10,6 +10,10 @@
   (layout/render
     "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
 
+(defn results [query]
+ (layout/render "results.html" {:barf (first (db/search->big-map query))}))
+
+
 (defn about-page []
   (layout/render "about.html"))
 
@@ -21,6 +25,7 @@
 
 (defroutes home-routes
   (GET "/" [] (home-page))
+  (POST "/results" [query] (results query))
   (GET "/lucky" [] (lucky))
   (POST "/lucky-result" [query] (lucky-result query))
   (GET "/about" [] (about-page)))
