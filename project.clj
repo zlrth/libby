@@ -23,6 +23,8 @@
                  [ring-webjars "0.1.1"]
                  [ring/ring-defaults "0.2.1"]
                  [clj-http "2.3.0"]
+                 [org.clojure/java.jdbc "0.7.0-alpha1"]
+                 [mysql/mysql-connector-java "6.0.5"]
                  [selmer "1.10.3"]]
 
   :min-lein-version "2.0.0"
@@ -51,7 +53,7 @@
                                  [ring/ring-devel "1.5.0"]
                                  [pjstadig/humane-test-output "0.8.1"]]
                   :plugins      [[com.jakemccrary/lein-test-refresh "0.18.1"]]
-                  
+
                   :source-paths ["env/dev/clj" "test/clj"]
                   :resource-paths ["env/dev/resources"]
                   :repl-options {:init-ns user}
