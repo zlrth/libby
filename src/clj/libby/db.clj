@@ -17,7 +17,7 @@
   (assoc m :download-link (map->download-link m)))
 
 (defn search->big-map [search]
-  (let [big-map-with-empties (j/query mysql-db ["select * from updated where title like ?" (str search "%")])
+  (let [big-map-with-empties (j/query mysql-db ["select * from updated where title like ?" (str "%" search "%")])
         big-map (map remove-empties big-map-with-empties)
         big-map-with-download-links (map map->map-with-download-link big-map)]
     big-map-with-download-links))
