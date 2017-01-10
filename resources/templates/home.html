@@ -1,5 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
+<form action="/results" method="POST">
+  {% csrf-field %}
+  <input id="query" name="query" placeholder="the bible" type="text" />
+  <input type="submit" value="get it!" />
+</form>
+
 <div class="row">
   <div class="col-sm-12">
     {{docs|markdown}}
