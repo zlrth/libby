@@ -54,6 +54,7 @@
 (defn query->download-link [query]
   (let [search-body (:body (client/get (str "http://libgen.io/search.php?req=" query)))
         md5s (distinct (re-seq #"(?<=md5=).{32}" search-body))
+        download-links (map (str "http://libgen.io/get/ %" md5s))
         ]))
 
 (defn get-result [query]
@@ -71,8 +72,25 @@
                :password ""
                })
 
-(defn md5->title [md5]
+(defn- map->download-link [{:keys [md5 author title extension] :as m}]
+  (str "http://libgen.io/get/" md5 "/" author "-" title "." extension))
+
+(defn- remove-empties [m] ;; http://stackoverflow.com/a/3938151
+  (into {} (remove (comp #(= "" %) second) m)))
+
+(defn md5->list-of-maps [md5]
   (first (j/query mysql-db ["select title,Extension,Filesize from updated where md5 = ?" md5])))
 
 
+(defn map->map-with-download-link [m]
+  (assoc m :download-link (map->download-link m)))
+
+(defn big-map->download-links [big-map]
+  (map map->download-link big-map))
+
+(defn search->big-map [search]
+  (let [big-map-with-empties (j/query mysql-db ["select * from updated where title like ?" (str search "%")])
+        big-map (map remove-empties big-map-with-empties)
+        big-map-with-download-links (map map->map-with-download-link big-map)]
+    big-map-with-download-links))
 
