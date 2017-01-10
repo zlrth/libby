@@ -2,9 +2,30 @@
 
 {% extends "base.html" %}
 {% block content %}
-<p>do you?</p>
 {{barf.md5}}
-<a href='google.com' download>clink me</a>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Title</th>
+      <th>Author</th>
+      <th>Download Link</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for bar in barf %}
+    <tr>
+      <th scope="row">1</th>
+      <td>{{bar.title}}</td>
+      <td>{{bar.author}}</td>
+      <td><a href='{{bar.download-link}}' download>{{bar.extension}}</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
 {% endblock %}
 
 
