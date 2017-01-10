@@ -4,25 +4,17 @@
 
 first you install mysql, following some of these directions: https://coderwall.com/p/os6woq/uninstall-all-those-broken-versions-of-mysql-and-re-install-it-with-brew-on-mac-mavericks . ignore most of it. just do like brew update and brew upgrade and brew install and then (important!):
 
-mysql.server start
-
-mysql -uroot
-
-then, inside mysql: create database bookwarrior;
-
-now exit mysql with control-d.
-
-now, assuming everything's done, do this: mysql -u root -p bookwarrior < backup_libgen.sql
-
-it should take minutes.
-
-you are ready to learn sql queryies!
-
-once you've mysql -uroot'd, don't forget to use bookwarrior;
-
-to check that it works, try select title from updated where md5 = '67BA5CC5A7118784770ED996B348C0FD';
-
-the result should be: Clojure Applied: From Practice to Practitioner
+- mysql.server start
+- mysql -uroot
+- then, inside mysql: create database bookwarrior;
+- now exit mysql with control-d.
+- now, assuming everything's done, do this: mysql -u root -p bookwarrior < backup_libgen.sql
+- hit enter when prompted for a password
+- it should take minutes.
+- you are ready to learn sql queryies!
+- once you've mysql -uroot'd, don't forget to use bookwarrior;
+- to check that it works, try select title from updated where md5 = '67BA5CC5A7118784770ED996B348C0FD';
+- the result should be: Clojure Applied: From Practice to Practitioner
 
 
 
