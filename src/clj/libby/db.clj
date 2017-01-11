@@ -10,11 +10,6 @@
 (defn- map->download-link [{:keys [md5 author title extension] :as m}]
   (str "http://libgen.io/get/" md5 "/" author "-" title "." extension))
 
-(defn ifnot-add-html [a]
-  (if-not (re-find #"html" a) (str "html" a) a))
-
-
-
 (defn- remove-empties [m] ;; http://stackoverflow.com/a/3938151
   (into {} (remove (comp #(= "" %) second) m)))
 
