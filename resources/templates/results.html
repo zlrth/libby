@@ -3,29 +3,40 @@
 {% extends "base.html" %}
 {% block content %}
 {{barf.md5}}
-
-<div class="card-columns">
+<!--
   {% for bar in barf %}
-  {% if forloop.counter <= 10 %}
-  <div class="card">
-    <img class="card-img-top img-fluid"
-         src="http://libgen.io/covers/{{bar.coverurl}}" width="370" alt="Card image cap">
-    <div class="card-block">
-      <h4 class="card-title">{{bar.title}}</h4>
+  {% if forloop.counter <= 3 %}
+     <img class="card-img-top img-fluid" src="http://libgen.io/covers/{{bar.coverurl}}" width="370" alt="Card image cap">
+      <h4 class="card-title">{{bar.title}}</h4><tr>
       <p class="card-text">{{bar.author}}</p>
-    </div>
-  </div>
+    
+  
   {% endif %}
       {% endfor %}
 
-</div>
+      -->
 
+<div class="row">
+  {% for bar in barf %}
+  {% if forloop.counter <= 4 %}
+
+                             <div class="col-xs-6 col-md-3">
+    <a href='{{bar.download-link}}' download class="thumbnail">
+      <img src="http://libgen.io/covers/{{bar.coverurl}}" width="200" alt="{{bar.extension}}">
+    </a>
+    <div class="caption">
+      </div>
+                             </div>
+
+
+  {% endif %}
+      {% endfor %}
+</div>
 
 <table class="table">
   <thead>
     <tr>
       <!-- <th>#</th> -->
-      <th>Cover</th>
       <th>Title</th>
       <th>Year</th>
       <th>Author</th>
@@ -37,11 +48,6 @@
     {% for bar in barf %}
     <tr>
       <!-- <th scope="row">1</th> -->
-      <td>
-        <a href='{{bar.download-link}}' download>
-          <img src="http://libgen.io/covers/{{bar.coverurl}}" height="42">
-        </a>
-      </td>
       <td>{{bar.title}}</td>
       <td>{{bar.year}}</td>
       <td>{{bar.author}}</td>
