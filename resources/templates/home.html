@@ -2,13 +2,10 @@
 {% block content %}
 <form action="/results" method="POST">
   {% csrf-field %}
-  <input id="query" name="query" placeholder="the bible" type="text" />
-  <input type="submit" value="get it!" />
+  <input id="query" name="query" class="form-control form-control-lg"
+  id="lgFormGroupInput" placeholder="The Life-Changing Magic of Tidying Up" type="text" />
+  <input type="submit" value="get it!" class="btn btn-primary" />
 </form>
 
-<div class="row">
-  <div class="col-sm-12">
-    {{docs|markdown}}
-  </div>
 </div>
 {% endblock %}
