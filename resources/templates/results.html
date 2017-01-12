@@ -5,7 +5,8 @@
 {{barf.md5}}
 
 <div class="card-columns">
-{% for bar in barf %}
+  {% for bar in barf %}
+  {% if forloop.counter <= 10 %}
   <div class="card">
     <img class="card-img-top img-fluid"
          src="http://libgen.io/covers/{{bar.coverurl}}" width="370" alt="Card image cap">
@@ -14,6 +15,7 @@
       <p class="card-text">{{bar.author}}</p>
     </div>
   </div>
+  {% endif %}
       {% endfor %}
 
 </div>
