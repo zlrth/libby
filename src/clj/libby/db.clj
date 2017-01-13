@@ -4,8 +4,7 @@
 (def mysql-db {:dbtype "mysql"
                :dbname "bookwarrior"
                :user "root"
-               :password ""
-               })
+               :password ""})
 
 (defn do-sql [search]
   (j/query mysql-db ["select * from updated where title like ?" (str "%" search "%")]))
@@ -14,13 +13,16 @@
   (into {} (remove (comp #(= "" %) second) m)))
 
 (defn- remove-empties [big-map]
-  (map remove-an-empty big-map)) 
+  (map remove-an-empty big-map))
 
 (defn fix-coverurls [big-map]
   (into () (map #(if ((fnil clojure.string/includes? "unfortunately-no-cover-is-found") (:coverurl %) "http" ) % (assoc % :coverurl (str "http://libgen.io/covers/" (:coverurl %)))) big-map)))
 
+(defn download-link [{:keys [md5 author title extension :as m]}]
+  (str "http://libgen.io/get/" md5 "/" author "-" title "." extension))
+
 (defn assoc-download-links [big-map]
-  (into () (map #(assoc % :download-link (str "http://libgen.io/get/" (:md5 %) "/" (:author %) "-" (:title %) "." (:extension %))) big-map)))
+  (into () (map #(assoc % :download-link (download-link %)) big-map)))
 
 (defn search->big-map [search]
   (-> search
@@ -30,6 +32,8 @@
       assoc-download-links))
 
 (defn search->single-download-link [search]
-  (let [big-map (search->big-map search)
-        download-link (:download-link (first big-map))]
-    download-link))
+  (-> search
+      search->big-map
+      first
+      :download-link))
+

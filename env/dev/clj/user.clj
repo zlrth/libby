@@ -5,7 +5,7 @@
             [clj-http.client :as client]
             [clojure.java.jdbc :as j]
             ;; [mysql-connector-java]
-            [libby.db :as db]
+            [libby.db :refer :all]
             libby.core))
 
 
@@ -20,9 +20,6 @@
 (defn restart []
   (stop)
   (start))
-
-
-
 
 (defn url->req
   [url]
