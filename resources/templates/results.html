@@ -9,8 +9,8 @@
      <img class="card-img-top img-fluid" src="http://libgen.io/covers/{{bar.coverurl}}" width="370" alt="Card image cap">
       <h4 class="card-title">{{bar.title}}</h4><tr>
       <p class="card-text">{{bar.author}}</p>
-    
-  
+
+
   {% endif %}
       {% endfor %}
 
@@ -32,7 +32,6 @@
   {% endif %}
       {% endfor %}
 </div>
-
 <table class="table">
   <thead>
     <tr>
@@ -40,6 +39,7 @@
       <th>Title</th>
       <th>Year</th>
       <th>Author</th>
+      <th>Publisher</th>
       <th>Pages</th>
       <th>Download</th>
     </tr>
@@ -51,6 +51,7 @@
       <td>{{bar.title}}</td>
       <td>{{bar.year}}</td>
       <td>{{bar.author}}</td>
+      <td>{{bar.publisher}}</td>
       <td>{{bar.pages}}</td>
       <td><a href='{{bar.download-link}}' download>{{bar.extension}}</a></td>
     </tr>

@@ -23,6 +23,8 @@
                  [ring-webjars "0.1.1"]
                  [ring/ring-defaults "0.2.1"]
                  [clj-http "2.3.0"]
+                 [cheshire "5.6.3"]
+                 [org.clojure/data.xml "0.0.8"]
                  [org.clojure/java.jdbc "0.7.0-alpha1"]
                  [mysql/mysql-connector-java "6.0.5"]
                  [selmer "1.10.3"]]
