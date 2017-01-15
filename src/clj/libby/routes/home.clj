@@ -13,7 +13,6 @@
 (defn results [query]
  (layout/render "results.html" {:barf (db/search->big-map query)}))
 
-
 (defn about-page []
   (layout/render "about.html"))
 

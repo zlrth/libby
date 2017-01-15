@@ -4,26 +4,36 @@
 (def mysql-db {:dbtype "mysql"
                :dbname "bookwarrior"
                :user "root"
-               :password ""
-               })
+               :password ""})
 
-(defn- map->download-link [{:keys [md5 author title extension] :as m}]
-  (str "http://libgen.io/get/" md5 "/" author "-" title "." extension))
+(defn do-sql [search]
+  (j/query mysql-db ["select * from updated where title like ?" (str "%" search "%")]))
 
-(defn- remove-empties [m] ;; http://stackoverflow.com/a/3938151
+(defn- remove-an-empty [m] ;; http://stackoverflow.com/a/3938151
   (into {} (remove (comp #(= "" %) second) m)))
 
-(defn map->map-with-download-link [m]
-  (assoc m :download-link (map->download-link m)))
+(defn- remove-empties [big-map]
+  (map remove-an-empty big-map))
+
+(defn fix-coverurls [big-map]
+  (into () (map #(if ((fnil clojure.string/includes? "unfortunately-no-cover-is-found") (:coverurl %) "http" ) % (assoc % :coverurl (str "http://libgen.io/covers/" (:coverurl %)))) big-map)))
+
+(defn download-link [{:keys [md5 author title extension :as m]}]
+  (str "http://libgen.io/get/" md5 "/" author "-" title "." extension))
+
+(defn assoc-download-links [big-map]
+  (into () (map #(assoc % :download-link (download-link %)) big-map)))
 
 (defn search->big-map [search]
-  (let [big-map-with-empties (j/query mysql-db ["select * from updated where title like ?" (str "%" search "%")])
-        big-map (map remove-empties big-map-with-empties)
-        big-map-with-download-links (map map->map-with-download-link big-map)]
-    big-map-with-download-links))
+  (-> search
+      do-sql
+      remove-empties
+      fix-coverurls
+      assoc-download-links))
 
 (defn search->single-download-link [search]
-  (let [big-map (search->big-map search)
-        download-link (:download-link (first big-map))]
-    download-link))
+  (-> search
+      search->big-map
+      first
+      :download-link))
 
