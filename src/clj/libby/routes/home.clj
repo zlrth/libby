@@ -11,7 +11,7 @@
     "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
 
 (defn results [query]
- (layout/render "results.html" {:barf (db/search->big-map query)}))
+ (layout/render "results.html" {:query query :barf (db/search->big-map query)}))
 
 (defn about-page []
   (layout/render "about.html"))
