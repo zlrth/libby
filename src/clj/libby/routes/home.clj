@@ -21,7 +21,5 @@
 (defroutes home-routes
   (GET "/" [] (home-page))
   (POST "/results" [query] (results query))
-  (GET "/lucky" [] (lucky))
-  (POST "/lucky-result" [query] (lucky-result query))
   (GET "/about" [] (about-page)))
 
