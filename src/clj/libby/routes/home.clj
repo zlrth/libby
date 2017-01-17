@@ -4,6 +4,7 @@
             [ring.util.http-response :as response]
             [clj-http.client :as client]
             [clojure.java.io :as io]
+            [clojure.tools.logging :as log]
             [libby.db :as db]))
 
 (defn home-page []
@@ -11,9 +12,8 @@
     "home.html" {:docs (-> "docs/docs.md" io/resource slurp)}))
 
 (defn results [query]
- (layout/render "results.html" {:query query :barf (db/search->big-map query)}))
-
-(memoize results) ;; get fucked
+  (let [_ (log/info query)]
+    (layout/render "results.html" {:query query :barf (db/search->big-map query)})))
 
 (defn about-page []
   (layout/render "about.html"))
