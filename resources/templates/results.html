@@ -2,7 +2,6 @@
 
 {% extends "base.html" %}
 {% block content %}
-{{barf.md5}}
 
 <div class="row">
   {% for bar in barf %}
@@ -15,33 +14,6 @@
   </div>
   {% endif %}
   {% endfor %}
-
-<table class="table">
-  <thead>
-    <tr>
-      <!-- <th>#</th> -->
-      <th>Title</th>
-      <th>Year</th>
-      <th>Author</th>
-      <th>Pages</th>
-      <th>Size</th>
-      <th>Download</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for bar in barf %}
-    <tr>
-      <!-- <th scope="row">1</th> -->
-      <td>{{bar.title}}</td>
-      <td>{{bar.year}}</td>
-      <td>{{bar.author}}</td>
-      <td>{{bar.pages}}</td>
-      <td>{{bar.filesize}}</td>
-      <td><a href='{{bar.download-link}}' download>{{bar.extension}}</a></td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
 
 
 <div class="container">
@@ -122,18 +94,12 @@
   <div class="flextable-item flextable-primary">
     <div class="btn-toolbar-item input-with-icon">
       <input type="text" class="form-control input-block" placeholder="Search orders">
-      <span class="icon icon-magnifying-glass"></span>
+
+    
+  <span class="icon icon-magnifying-glass"></span>
     </div>
   </div>
   <div class="flextable-item">
-    <div class="btn-group">
-      <button type="button" class="btn btn-outline-primary">
-        <span class="icon icon-pencil"></span>
-      </button>
-      <button type="button" class="btn btn-outline-primary">
-        <span class="icon icon-erase"></span>
-      </button>
-    </div>
   </div>
 </div>
 
@@ -143,6 +109,7 @@
   <table class="table" data-sort="table">
     <thead>
       <tr>
+        <th>Rank</th>
         <th>Title</th>
         <th>Year</th>
         <th>Author</th>
@@ -154,12 +121,13 @@
     <tbody>
       {% for bar in barf %}
       <tr>
-      <td>{{bar.title}}</td>
-      <td>{{bar.year}}</td>
-      <td>{{bar.author}}</td>
-      <td>{{bar.pages}}</td>
-      <td>{{bar.filesize}}</td>
-      <td><a href='{{bar.download-link}}' download>{{bar.extension}}</a></td>
+        <td>1</td>
+        <td>{{bar.title}}</td>
+        <td>{{bar.year}}</td>
+        <td>{{bar.author}}</td>
+        <td>{{bar.pages}}</td>
+        <td>{{bar.filesize}}</td>
+        <td><a href='{{bar.download-link}}' download>{{bar.extension}}</a></td>
       </tr>
       {% endfor %}
     </tbody>
