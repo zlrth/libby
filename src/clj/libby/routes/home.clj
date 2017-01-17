@@ -18,13 +18,6 @@
 (defn about-page []
   (layout/render "about.html"))
 
-(defn lucky []
-  (layout/render "lucky.html"))
-
-
-(defn lucky-result [query]
-  (layout/render "lucky-result.html" {:link (db/search->single-download-link query)}))
-
 (defroutes home-routes
   (GET "/" [] (home-page))
   (POST "/results" [query] (results query))
