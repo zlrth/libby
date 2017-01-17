@@ -9,6 +9,7 @@
 (defn do-sql [search]
   (j/query mysql-db ["select * from updated where title like ?" (str "%" search "%")]))
 
+
 (defn- remove-an-empty [m] ;; http://stackoverflow.com/a/3938151
   (into {} (remove (comp #(= "" %) second) m)))
 
@@ -31,9 +32,4 @@
       fix-coverurls
       assoc-download-links))
 
-(defn search->single-download-link [search]
-  (-> search
-      search->big-map
-      first
-      :download-link))
 
