@@ -13,11 +13,14 @@
 (defn results [query]
  (layout/render "results.html" {:query query :barf (db/search->big-map query)}))
 
+(memoize results) ;; get fucked
+
 (defn about-page []
   (layout/render "about.html"))
 
 (defn lucky []
-    (layout/render "lucky.html"))
+  (layout/render "lucky.html"))
+
 
 (defn lucky-result [query]
   (layout/render "lucky-result.html" {:link (db/search->single-download-link query)}))
