@@ -1,10 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
+<br><br><br><br>
+<br><br><br><br>
 <form action="/results" method="POST">
   {% csrf-field %}
-  <input id="query" name="query" class="form-control form-control-lg"
-  id="lgFormGroupInput" placeholder="The Life-Changing Magic of Tidying Up" type="text" />
-  <input type="submit" value="get it!" class="btn btn-primary" />
+  <input id="query" name="query" class="form-control form-control-lg input-block"
+  id="lgFormGroupInput" placeholder="" autofocus="autofocus" type="text" />
 </form>
 
 </div>
