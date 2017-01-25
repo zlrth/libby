@@ -6,6 +6,7 @@
             [clojure.java.jdbc :as j]
             ;; [mysql-connector-java]
             [libby.db :refer :all]
+            [libby.solr :as solr]
             libby.core))
 
 

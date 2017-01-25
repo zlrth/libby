@@ -3,7 +3,8 @@
   :description "FIXME: write description"
   :url "http://example.com/FIXME"
 
-  :dependencies [[bouncer "1.0.0"]
+  :dependencies [;; from luminus
+                 [bouncer "1.0.0"]
                  [compojure "1.5.1"]
                  [cprop "0.1.9"]
                  [luminus-immutant "0.2.2"]
@@ -24,9 +25,16 @@
                  [ring/ring-defaults "0.2.1"]
                  [clj-http "2.3.0"]
                  [org.clojure/core.memoize "0.5.8"]
+                 ;; things we added
                  [org.clojure/java.jdbc "0.7.0-alpha1"]
                  [mysql/mysql-connector-java "6.0.5"]
-                 [selmer "1.10.3"]]
+                 [selmer "1.10.3"]
+                 ;; for solr
+                 [com.codesignals/flux "0.7.0-SNAPSHOT" :exclusions [[log4j] [org.slf4j/slf4j-log4j12]]]
+                 [ch.qos.logback/logback-classic "1.0.13"]
+                 [commons-logging "1.1.3"]
+                 [org.clojure/tools.namespace "0.2.4"]
+                 ]
 
   :min-lein-version "2.0.0"
 
