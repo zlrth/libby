@@ -16,7 +16,7 @@
 
 (def config {:zk-connect "localhost:9983"
              :url "http://localhost:8983/solr"
-             :collection "caff"
+             :collection "iaff"
              })
 
 (def system
@@ -29,6 +29,12 @@
   []
   (swap! system assoc :conn (create-connection @system)))
 
+(defn stop
+  "Stops the system if it is currently running, updates the Var
+  #'system."
+  []
+  (when-let [conn (:conn @system)]
+    (swap! system assoc :conn (.shutdown conn))))
 
 (defn init
   "Creates and initializes the system under development in the Var
@@ -45,11 +51,13 @@
   :ready)
 
 (defn do-shit []
-  (start)
   (go))
 
 
 (defn query "execute a query in Solr.
   Assumes that the system map already contains a connection that has been started."
   [system & args] (flux/with-connection (:conn system) (apply flux/query args)))
+
+(defn q "Convenience method to send a query using the system in the #'system atom"
+  [& args] (apply query @system args))
 
