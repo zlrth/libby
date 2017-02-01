@@ -7,6 +7,7 @@
             ;; [mysql-connector-java]
             [libby.db :refer :all]
             [libby.solr :as solr]
+            [libby.query :as q]
             libby.core))
 
 
