@@ -9,6 +9,7 @@ pom.xml
 profiles.clj
 /pdfs
 /.env
+/resources/solr/indexandconfig/data
 .nrepl-port
 /log
 .\#*
