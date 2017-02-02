@@ -8,6 +8,7 @@
             [libby.db :refer :all]
             [libby.solr :as solr]
             [libby.query :as q]
+            [flux.embedded :as e]
             libby.core))
 
 
