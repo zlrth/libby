@@ -9,8 +9,23 @@
             [libby.solr :as solr]
             [libby.query :as q]
             [flux.embedded :as e]
+            [flux.core :as f]
             libby.core))
 
+;; consider disabling font-lock-mode for faster repl printing
+(defn setup []
+  (let [container (e/create-core-container "resources/solr" "resources/solr/solr.xml")
+        core (e/create container :libbyname)]
+    core))
+
+(def keys-in-solr [:id :author :lcc :md5 :publisher :series :ddc :identifierwodash :doi :title :asin :pages :identifier :filesize :openlibraryid :edition :coverurl])
+
+(def core (setup))
+
+(def fixture-data (map #(select-keys % keys-in-solr) (do-sql "history")))
+
+(defn add-seq-of-docs [conn m]
+  (f/with-connection conn (map #(f/add %) m) (f/commit)))
 
 (defn start []
   (mount/start-without #'libby.core/http-server

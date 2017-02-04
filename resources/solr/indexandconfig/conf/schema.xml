@@ -5,9 +5,22 @@
     <field name="_version_" type="long" indexed="true" stored="true"/>
    
     <field name="id" type="int" indexed="true" stored="true" required="true" multiValued="false" />
-    <!-- field type="text_general" is currently erroring out -->
-    <field name="title" type="text_general" indexed="true" stored="true"/>
     <field name="author" type="text_general" indexed="true" stored="true"/>
+    <field name="lcc" type="text_general" indexed="true" stored="true"/>
+    <field name="md5" type="text_general" indexed="true" stored="true"/>
+    <field name="publisher" type="text_general" indexed="true" stored="true"/>
+    <field name="series" type="text_general" indexed="true" stored="true"/>
+    <field name="ddc" type="text_general" indexed="true" stored="true"/>
+    <field name="identifierwodash" type="text_general" indexed="true" stored="true"/>
+    <field name="doi" type="text_general" indexed="true" stored="true"/>
+    <field name="title" type="text_general" indexed="true" stored="true"/>
+    <field name="asin" type="text_general" indexed="true" stored="true"/>
+    <field name="pages" type="text_general" indexed="true" stored="true"/>
+    <field name="identifier" type="text_general" indexed="true" stored="true"/>
+    <field name="filesize" type="text_general" indexed="true" stored="true"/>
+    <field name="openlibraryid" type="text_general" indexed="true" stored="true"/>
+    <field name="edition" type="text_general" indexed="true" stored="true"/>
+    <field name="coverurl" type="text_general" indexed="true" stored="true"/>
 
 
    <!-- Dynamic field definitions allow using convention over configuration

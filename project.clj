@@ -30,10 +30,12 @@
                  [mysql/mysql-connector-java "6.0.5"]
                  [selmer "1.10.3"]
                  ;; for solr
-                 [com.codesignals/flux "0.7.0-SNAPSHOT" :exclusions [[log4j] [org.slf4j/slf4j-log4j12]]]
-                 [ch.qos.logback/logback-classic "1.0.13"]
-                 [commons-logging "1.1.3"]
+                 [com.codesignals/flux "0.7.0-SNAPSHOT"]
+                 ; [com.codesignals/flux "0.7.0-SNAPSHOT" :exclusions [[log4j] [org.slf4j/slf4j-log4j12]]]
+                 ; [ch.qos.logback/logback-classic "1.0.13"]
+                 ; [commons-logging "1.1.3"]
                  [org.clojure/tools.namespace "0.2.4"]
+                 [org.clojure/tools.logging "0.3.1"]
                  ]
 
   :min-lein-version "2.0.0"
@@ -45,7 +47,10 @@
   :main libby.core
 
   :plugins [[lein-cprop "1.0.1"]
-            [lein-immutant "2.1.0"]]
+            [lein-immutant "2.1.0"]
+            [cider/cider-nrepl "0.15.0-SNAPSHOT"]
+            [refactor-nrepl "2.3.0-SNAPSHOT"]
+            ]
 
   :profiles
   {:uberjar {:omit-source true
