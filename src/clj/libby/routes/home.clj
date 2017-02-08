@@ -5,8 +5,6 @@
             [clj-http.client :as client]
             [clojure.java.io :as io]
             [clojure.tools.logging :as log]
-            [libby.db :as db]
-            [libby.solr :as solr]
             [libby.query :as q]))
 
 (defn home-page []

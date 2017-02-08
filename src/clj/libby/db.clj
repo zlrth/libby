@@ -9,9 +9,6 @@
 (defn do-sql [search]
   (j/query mysql-db ["select * from updated where title like ?" (str "%" search "%")]))
 
-(defn sql-query [search]
-  (j/query mysql-db [search]))
-
 (defn- remove-an-empty [m] ;; http://stackoverflow.com/a/3938151
   (into {} (remove (comp #(= "" %) second) m)))
 
