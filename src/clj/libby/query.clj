@@ -8,18 +8,6 @@
 
 ;; consider disabling font-lock-mode for faster repl printing
 
-(def mysql-db {:dbtype "mysql"
-               :dbname "bookwarrior"
-               :user "root"
-               :password ""})
-(defn mysql->solr [conn]
-  (flux/with-connection conn (clojure.java.jdbc/query mysql-db
-                                   ["select id,author,lcc,md5,publisher,series,ddc,identifierwodash,doi, title,asin,pages,filesize,openlibraryid,edition,coverurl,extension from updated"]
-                                   {:row-fn flux/add
-                                    }
-                                   )
-    (flux/commit)))
-
 (defn- remove-an-empty [m] ;; http://stackoverflow.com/a/3938151
   (into {} (remove (comp #(= "" %) second) m)))
 
