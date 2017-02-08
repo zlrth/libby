@@ -1,10 +1,5 @@
 (ns libby.query
-  (:require [flux.http :as http]
-            [flux.cloud :as cloud]
-            [flux.core :as flux]
-            [libby.solr :as solr]
-            [flux.embedded :as e]))
-
+  (:require [libby.solr :as solr]))
 
 (defn- remove-an-empty [m] ;; http://stackoverflow.com/a/3938151
   (into {} (remove (comp #(= "" %) second) m)))

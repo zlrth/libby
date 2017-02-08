@@ -3,15 +3,16 @@
            [flux.embedded :as e]))
 
 ;; this atom holds the connection to the embedded solr server.
+;; in solr terminology, it's called a core for some reason.
 (def core (atom {}))
 
-(defn setup []
+(defn connection-to-solr []
   (let [container (e/create-core-container "resources/solr" "resources/solr/solr.xml")
         core (e/create container :libbyname)] ;; sorry about the dumb name ":libbyname"
     core))
 
 (defn start []
-  (swap! core assoc :conn (setup)))
+  (swap! core assoc :conn (connection-to-solr)))
 
 (defn stop []
   (reset! core nil))

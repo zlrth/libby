@@ -2,7 +2,6 @@
   (:require [libby.layout :as layout]
             [compojure.core :refer [defroutes GET POST]]
             [ring.util.http-response :as response]
-            [clj-http.client :as client]
             [clojure.java.io :as io]
             [clojure.tools.logging :as log]
             [libby.query :as q]))
