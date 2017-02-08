@@ -6,21 +6,7 @@
             [clojure.java.jdbc :as j]
             ;; [mysql-connector-java]
             [libby.db :refer :all]
-            [libby.solr :as solr]
-            [libby.query :as q]
-            [flux.embedded :as e]
-            [flux.core :as f]
-            [clojure.tools.logging :refer :all]
             libby.core))
-
-;; consider disabling font-lock-mode for faster repl printing
-(defn setup []
-  (let [container (e/create-core-container "resources/solr" "resources/solr/solr.xml")
-        core (e/create container :libbyname)]
-    core))
-
-(def core (setup))
-
 
 (defn start []
   (mount/start-without #'libby.core/http-server
