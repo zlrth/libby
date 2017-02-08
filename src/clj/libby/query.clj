@@ -6,8 +6,6 @@
             [flux.embedded :as e]))
 
 
-;; consider disabling font-lock-mode for faster repl printing
-
 (defn- remove-an-empty [m] ;; http://stackoverflow.com/a/3938151
   (into {} (remove (comp #(= "" %) second) m)))
 

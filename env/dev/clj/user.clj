@@ -5,7 +5,6 @@
             [clj-http.client :as client]
             [clojure.java.jdbc :as j]
             ;; [mysql-connector-java]
-            [libby.db :refer :all]
             libby.core))
 
 (defn start []
