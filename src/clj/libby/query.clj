@@ -2,8 +2,23 @@
   (:require [flux.http :as http]
             [flux.cloud :as cloud]
             [flux.core :as flux]
-            [libby.solr :as solr]))
+            [libby.solr :as solr]
+            [flux.embedded :as e]))
 
+
+;; consider disabling font-lock-mode for faster repl printing
+
+(def mysql-db {:dbtype "mysql"
+               :dbname "bookwarrior"
+               :user "root"
+               :password ""})
+(defn mysql->solr [conn]
+  (flux/with-connection conn (clojure.java.jdbc/query mysql-db
+                                   ["select id,author,lcc,md5,publisher,series,ddc,identifierwodash,doi, title,asin,pages,filesize,openlibraryid,edition,coverurl,extension from updated"]
+                                   {:row-fn flux/add
+                                    }
+                                   )
+    (flux/commit)))
 
 (defn- remove-an-empty [m] ;; http://stackoverflow.com/a/3938151
   (into {} (remove (comp #(= "" %) second) m)))
@@ -15,18 +30,17 @@
   (map #(zipmap (keys %) (flatten (vals %))) big-map))
 
 (defn fix-coverurls [big-map]
-  (into () (map #(if ((fnil clojure.string/includes? "unfortunately-no-cover-is-found") (:coverurl_t %) "http" ) % (assoc % :coverurl_t (str "http://libgen.io/covers/" (:coverurl_t %)))) big-map)))
+  (into () (map #(if ((fnil clojure.string/includes? "unfortunately-no-cover-is-found") (:coverurl %) "http" ) % (assoc % :coverurl (str "http://libgen.io/covers/" (:coverurl %)))) big-map)))
 
-(defn download-link [{:keys [md5_t author_t title_t extension_t :as m]}]
-  (str "http://libgen.io/get/" md5_t "/" author_t "-" title_t "." extension_t))
+(defn download-link [{:keys [md5 author title extension :as m]}]
+  (str "http://libgen.io/get/" md5 "/" author "-" title "." extension))
 
 (defn assoc-download-links [big-map]
   (into () (map #(assoc % :download-link (download-link %)) big-map)))
 
 (defn search->big-map [search]
-  (solr/go)
   (-> search
-      (solr/q {:edismax 1 :rows 1000})
+      (solr/q {:rows 1000 :qf "author title"})
       :response
       :docs
       devectorize

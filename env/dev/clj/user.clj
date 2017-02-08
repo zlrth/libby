@@ -19,23 +19,8 @@
         core (e/create container :libbyname)]
     core))
 
-(def keys-in-solr [:id :author :lcc :md5 :publisher :series :ddc :identifierwodash :doi :title :asin :pages :identifier :filesize :openlibraryid :edition :coverurl])
-
 (def core (setup))
 
-;; (def fixture-data (map #(select-keys % keys-in-solr) (select-everything)))
-
-
-(defn add-seq-of-docs [conn m]
-  (f/with-connection conn (map #(f/add %) m) (f/commit)))
-
-(defn mysql->solr [conn]
-  (f/with-connection conn (j/query mysql-db
-                                   ["select id,author,lcc,md5,publisher,series,ddc,identifierwodash,doi, title,asin,pages,filesize,openlibraryid,edition,coverurl from updated"]
-                                   {:row-fn f/add
-                                    }
-                                   )
-    (f/commit)))
 
 (defn start []
   (mount/start-without #'libby.core/http-server

@@ -121,12 +121,13 @@
     <!-- doc values are enabled by default for primitive types such as long so we don't index the version field  -->
     <field name="_version_" type="long" indexed="false" stored="false"/>
     <field name="_root_" type="string" indexed="true" stored="false" docValues="false" />
-    <field name="_text_" type="text_general" indexed="true" stored="false" multiValued="true"/>
-
+    <!-- matt marks getting an error for _text_.  changing to text_general -->
+    <field name="text_general" type="text_general" indexed="true" stored="false" multiValued="true"/>
     <!-- Only enabled in the "schemaless" data-driven example (assuming the client
          does not know what fields may be searched) because it's very expensive to index everything twice. -->
+    <!-- matt marks copying this out too.
     <copyField source="*" dest="_text_"/>
-
+    -->
     <!-- Dynamic field definitions allow using convention over configuration
        for fields via the specification of patterns to match field names. 
        EXAMPLE:  name="*_i" will match any field ending in _i (like myid_i, z_i)
