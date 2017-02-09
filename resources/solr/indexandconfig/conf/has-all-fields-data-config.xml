@@ -1,0 +1,81 @@
+<dataConfig>
+  <dataSource type="JdbcDataSource" 
+              driver="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://localhost:3306/bookwarrior" 
+              user="root"
+              password=""/>
+  <document>
+    <entity name="product"  
+            pk="id"
+            query="select * from updated"
+      deltaImportQuery="SELECT id,name from products WHERE id='${dih.delta.id}'"
+      deltaQuery="SELECT id FROM products  WHERE updated_at > '${dih.last_index_time}'"
+      >
+
+            <!--
+                query="select id,title,volumeinfo,series,periodical,author,year,edition,publisher,city,pages,pagesinfile,language,topic,library,issue,identifier,issn,asin,udc,lbc,ddc,lcc,doi,googlebookid,openlibraryid,commentary,dpi,color,cleaned,orientation,paginated,scanned,bookmarked,searchable,filesize,extension,md5,generic,visible,locator,local,timeadded,timelastmodified,coverurl,tags,identifierwodash from updated"
+            -->
+      <field column="id" name="id"/>
+      
+      <field column="title" name="title_t"/>
+      <field column="volumeinfo" name="volumeinfo_t"/>
+      <field column="series" name="series_t"/>
+      <field column="periodical" name="periodical_t"/>
+      <field column="author" name="author_t"/>
+      <field column="year" name="year_t"/>
+      <field column="edition" name="edition_t"/>
+      <field column="publisher" name="publisher_t"/>
+      <field column="city" name="city_t"/>
+      <field column="pages" name="pages_t"/>
+      <field column="pagesinfile" name="pagesinfile_t"/>
+      <field column="language" name="language_t"/>
+      <field column="topic" name="topic_t"/>
+      <field column="library" name="library_t"/>
+      <field column="issue" name="issue_t"/>
+      <field column="identifier" name="identifier_t"/>
+      <field column="issn" name="issn_t"/>
+      <field column="asin" name="asin_t"/>
+      <field column="udc" name="udc_t"/>
+      <field column="lbc" name="lbc_t"/>
+      <field column="ddc" name="ddc_t"/>
+      <field column="lcc" name="lcc_t"/>
+      <field column="doi" name="doi_t"/>
+      <field column="googlebookid" name="googlebookid_t"/>
+      <field column="openlibraryid" name="openlibraryid_t"/>
+      <field column="commentary" name="commentary_t"/>
+      <field column="dpi" name="dpi_t"/>
+      <field column="color" name="color_t"/>
+      <field column="cleaned" name="cleaned_t"/>
+      <field column="orientation" name="orientation_t"/>
+      <field column="paginated" name="paginated_t"/>
+      <field column="scanned" name="scanned_t"/>
+      <field column="bookmarked" name="bookmarked_t"/>
+      <field column="searchable" name="searchable_t"/>
+      <field column="filesize" name="filesize_t"/>
+      <field column="extension" name="extension_t"/>
+      <field column="md5" name="md5_t"/>
+      <field column="generic" name="generic_t"/>
+      <field column="visible" name="visible_t"/>
+      <field column="locator" name="locator_t"/>
+      <field column="local" name="local_t"/>
+      <field column="timeadded" name="timeadded_t"/>
+      <field column="timelastmodified" name="timelastmodified_t"/>
+      <field column="coverurl" name="coverurl_t"/>
+      <field column="tags" name="tags_t"/>
+      <field column="identifierwodash" name="identifierwodash_t"/>
+<!--
+      <field column="id" name="id"/>
+      <field column="title" name="title_t"/>
+      <field column="author" name="author_t"/>
+      <field column="md5" name="md5_t"/>
+      <field column="" name="author_t"/>
+      <field column="author" name="author_t"/>
+      <field column="author" name="author_t"/>
+      <field column="author" name="author_t"/>
+      <field column="author" name="author_t"/>
+      <field column="author" name="author_t"/>
+
+-->
+    </entity>
+  </document>
+</dataConfig>

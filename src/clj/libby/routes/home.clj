@@ -2,10 +2,9 @@
   (:require [libby.layout :as layout]
             [compojure.core :refer [defroutes GET POST]]
             [ring.util.http-response :as response]
-            [clj-http.client :as client]
             [clojure.java.io :as io]
             [clojure.tools.logging :as log]
-            [libby.db :as db]))
+            [libby.query :as q]))
 
 (defn home-page []
   (layout/render
@@ -13,7 +12,7 @@
 
 (defn results [query]
   (let [_ (log/info query)]
-    (layout/render "results.html" {:query query :barf (db/search->big-map query)})))
+    (layout/render "results.html" {:query query :barf (q/search->big-map query)})))
 
 (defn about-page []
   (layout/render "about.html"))
