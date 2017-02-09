@@ -1,6 +1,7 @@
 (ns user
   (:require [mount.core :as mount]
-            libby.core))
+            libby.core
+            [libby.query :refer :all]))
 
 (defn start []
   (mount/start-without #'libby.core/http-server

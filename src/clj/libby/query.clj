@@ -19,6 +19,9 @@
 (defn assoc-download-links [big-map]
   (into () (map #(assoc % :download-link (download-link %)) big-map)))
 
+(defn file-size-in-kbs [big-map]
+  (into () (map #(assoc % :filesize (quot (read-string (:filesize %)) 1000)) big-map)))
+
 (defn search->big-map [search]
   (-> search
       (solr/q {:rows 1000 :qf "author title"})
@@ -27,5 +30,6 @@
       devectorize
       remove-empties
       fix-coverurls
+      file-size-in-kbs
       assoc-download-links))
 
