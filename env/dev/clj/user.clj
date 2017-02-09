@@ -1,6 +1,9 @@
 (ns user
   (:require [mount.core :as mount]
-            libby.core))
+            [libby.core :as libby]
+            [libby.solr :as solr]
+            [libby.update-solr :as u]
+            [clojure.tools.logging :as log]))
 
 (defn start []
   (mount/start-without #'libby.core/http-server

@@ -23,6 +23,7 @@
     <field name="edition" type="text_general" indexed="true" stored="true"/>
     <field name="coverurl" type="text_general" indexed="true" stored="true"/>
     <field name="extension" type="text_general" indexed="true" stored="true"/>
+    <field name="year" type="text_general" indexed="true" stored="true"/>
 
 
    <!-- Dynamic field definitions allow using convention over configuration
