@@ -3,7 +3,8 @@
             [libby.core :as libby]
             [libby.solr :as solr]
             [libby.update-solr :as u]
-            [clojure.tools.logging :as log]))
+            [clojure.tools.logging :as log]
+            [libby.query :refer :all]))
 
 (defn start []
   (mount/start-without #'libby.core/http-server
