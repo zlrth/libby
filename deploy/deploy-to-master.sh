@@ -22,7 +22,7 @@ send "sudo kill \$(pidof java)\r"
 
 expect "password for ubuntu: "
 
-# ; this password too
+; #this password too
 send "dogshoeexitapple\r"
 
 expect "$ "
