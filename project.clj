@@ -36,6 +36,9 @@
                  ; [commons-logging "1.1.3"]
                  [org.clojure/tools.namespace "0.2.4"]
                  [org.clojure/tools.logging "0.3.1"]
+                 ;; for art's scheduler
+                 [jarohen/chime "0.2.0"]
+                 [clj-time "0.13.0"]
                  ]
 
   :min-lein-version "2.0.0"
