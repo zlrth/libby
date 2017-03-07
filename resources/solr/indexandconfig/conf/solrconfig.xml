@@ -86,8 +86,10 @@
   <lib dir="../contrib/velocity/lib" regex=".*\.jar" />
 
   <lib dir="../contrib/velocity/lib" regex=".*\.jar" />
-  <!-- matt marks -->
-  <lib dir="../contrib/dataimporthandler/lib" regex=".*\.jar" />
+  <!-- matt marks 
+
+<lib dir="../contrib/dataimporthandler/lib" regex=".*\.jar" /> -->
+
   <!-- an exact 'path' can be used instead of a 'dir' to specify a 
        specific jar file.  This will cause a serious error to be logged 
        if it can't be loaded.
@@ -758,12 +760,14 @@
        queries across multiple shards
     -->
 
-<!-- matt marks -->
+  <!-- matt marks 
+
   <requestHandler name="/dataimport" class="org.apache.solr.handler.dataimport.DataImportHandler">
     <lst name="defaults">
       <str name="config">data-config.xml</str>
     </lst>
-  </requestHandler>
+    </requestHandler>
+    -->
 
   <requestHandler name="/select" class="solr.SearchHandler">
     <!-- default values for query parameters can be specified, these
