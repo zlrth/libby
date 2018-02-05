@@ -42,9 +42,16 @@ To start the db, run:
 To start a web server for the application, run:
 
     lein run
+## another installation note
+flux 0.7.0 still (october 15 2017) isn't in clojars, so you need to `lein install` it manually like so:
+
+https://github.com/matthoffman/solr-clojure-sample#step-15
 
 ## License
+MIT
 
-Copyright © 2017 FIXME
+
+
+
 
 ## make sure to grep for "password" before open-sourcing anything.
