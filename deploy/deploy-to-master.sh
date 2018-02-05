@@ -8,13 +8,11 @@
 
 set timeout 600 ; # number of seconds to wait for "expect [prompt]". `lein uberjar` takes forever.
 
-spawn ssh ubuntu@45.56.99.26
+spawn ssh $env(LIBBY_USERNAME)\@$env(LIBBY_IP)
 
 expect "password: "
 
-; #if we ever open-source this, this password should be put in a parameter. or we should use ssh keys.
-send "dogshoeexitapple\r"
-
+send "$env(LIBBY_PASSWORD)\r"
 
 expect "$ "
 
@@ -22,8 +20,7 @@ send "sudo kill \$(pidof java)\r"
 
 expect "password for ubuntu: "
 
-; #this password too
-send "dogshoeexitapple\r"
+send "$env(LIBBY_PASSWORD)\r"
 
 expect "$ "
 
