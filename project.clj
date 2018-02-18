@@ -40,7 +40,7 @@
 
   :min-lein-version "2.0.0"
 
-  :jvm-opts ["-server" "-Dconf=.lein-env"]
+  :jvm-opts ["-server" "-Dconf=.lein-env" "-Xms50M" "-Xmx75M"]
   :source-paths ["src/clj"]
   :resource-paths ["resources"]
   :target-path "target/%s/"
